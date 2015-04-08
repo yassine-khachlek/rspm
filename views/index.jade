@@ -1,0 +1,53 @@
+extends layout
+
+block content
+  h1= title
+  //p Welcome to #{title}
+
+  | <pre>
+  |	  <div id="information" ></div>
+  | </pre>
+  
+  script(type='text/javascript').
+    
+    /**
+    Default hostname & port
+    */
+    var protocol = window.location.protocol;
+    var hostname = window.location.hostname;
+    var port = 3000;
+
+    /**
+    NOT WORKING ON HTTPS, WILL VERIFY THIS LATER
+    AT THE MOMENT JUST REDIRECT TO HTTP.
+    */
+    if( window.location.protocol!='http:' ){
+      window.location = 'http://' + window.location.host;
+    }
+
+    /**
+     Just for heroku app demo, need to change the port to 80
+    */
+    if( hostname.indexOf('herokuapp.com') >= 0 ){
+      port = 80;
+    }
+
+    /**
+    Connect to socket server
+    */
+    var socket = io.connect(protocol + '//' + hostname + ':' + port);
+
+    /**
+     Get data event
+    */
+    socket.on('data', function (data) {
+    
+      var information = '';
+    
+      for(var index in  data){
+      	information += index + ': ' + data[index] + '\n';
+      	document.getElementById("information").innerHTML = information;	
+      }
+    
+    });
+
