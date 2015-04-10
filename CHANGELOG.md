@@ -1,7 +1,11 @@
+0.0.3 / 2015-04-10
+==================
+
+	* Added bower postinstall script to make install easy just by npm install specially for heroku
+
 0.0.2 / 2015-04-10
 ==================
 
-  * Added bower postinstall script to make install easy just by npm install
   * Added Mustache as a front-end template rendering
 
 0.0.2 / 2015-04-09
