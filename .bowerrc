@@ -6,6 +6,5 @@
     "search": [
       "https://bower.herokuapp.com"
     ]
-  },
-  "strict-ssl": false
+  }
 }
