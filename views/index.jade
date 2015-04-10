@@ -1,53 +1,85 @@
 extends layout
 
 block content
-  h1= title
-  //p Welcome to #{title}
+  h2
+    span(class='glyphicon glyphicon-eye-open', aria-hidden='true')
+    = ' ' + title
 
-  | <pre>
-  |	  <div id="information" ></div>
-  | </pre>
+  div(class='row')
+    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+      div(id='connect-container')
+
+  div(class='row')
+    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+      div(id='data-os-container')
+
+  div(class='row')
+    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+      div(id='data-cpus-container')
+
+  div(id='connect-template', class='hidden')
+    h3
+      | Connection 
+      span(class='label label-{{connectionStateColor}}', style='padding-top: 8px;')
+        span(class='glyphicon glyphicon-link', aria-hidden='true')
+
+  div(id='dataOsTemplate', class='hidden')
+        h3
+          |Os
+        div(class='table-responsive')
+          table(class='table table-bordered table-hover table-condensed')
+            thead
+            tbody
+              tr
+                th
+                  span(class='glyphicon glyphicon-home', aria-hidden='true')
+                  |hostname
+                td
+                  |{{hostname}}
+              tr
+                th
+                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
+                  |type
+                td
+                  |{{type}}
+              tr
+                th
+                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
+                  |platform
+                td
+                  |{{platform}}
+              tr
+                th
+                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
+                  |arch.
+                td
+                  |{{arch}}
+              tr
+                th
+                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
+                  |release
+                td
+                  |{{release}}
+        samp
+          |{{lastChanged}}
   
-  script(type='text/javascript').
-    
-    /**
-    Default hostname & port
-    */
-    var protocol = window.location.protocol;
-    var hostname = window.location.hostname;
-    var port = 3000;
+  div(id='dataCpusTemplate', class='hidden')
+    h3
+      |Cpus
+    div(class='table-responsive')
+      {{#cpus}}
+      table(class='table table-bordered table-hover table-condensed')
+        tbody
+        tr
+          th
+            {{model}}
+          td
+            {{speed}}
+      {{/cpus}}
+    samp
+      |{{lastChanged}}
 
-    /**
-    NOT WORKING ON HTTPS, WILL VERIFY THIS LATER
-    AT THE MOMENT JUST REDIRECT TO HTTP.
-    */
-    if( window.location.protocol!='http:' ){
-      window.location = 'http://' + window.location.host;
-    }
-
-    /**
-     Just for heroku app demo, need to change the port to 80
-    */
-    if( hostname.indexOf('herokuapp.com') >= 0 ){
-      port = 80;
-    }
-
-    /**
-    Connect to socket server
-    */
-    var socket = io.connect(protocol + '//' + hostname + ':' + port);
-
-    /**
-     Get data event
-    */
-    socket.on('data', function (data) {
+  //  script(type='text/javascript').
     
-      var information = '';
-    
-      for(var index in  data){
-      	information += index + ': ' + data[index] + '\n';
-      	document.getElementById("information").innerHTML = information;	
-      }
-    
-    });
+  
 

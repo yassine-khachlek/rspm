@@ -1,0 +1,21 @@
+{
+  "name": "system-performance-monitoring",
+  "version": "0.0.2",
+  "homepage": "https://github.com/yassine-khachlek/system-performance-monitoring",
+  "authors": [
+    "Yassine Khachlek <yassine.khachlek@gmail.com>"
+  ],
+  "license": "GPLv2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "public/components/"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "mustache": "~2.0.0"
+  }
+}

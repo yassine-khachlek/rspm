@@ -3,7 +3,7 @@
   Copyright(c) 2015 Yassine Khachlek
 
   @author Yassine Khachlek <yassine.khachlek@gmail.com>
-  @version 0.0.1
+  @version 0.0.2
   @license GPLv2
 */
 
@@ -13,11 +13,11 @@ module.exports = function(appServer) {
 
   var io = require('socket.io')(appServer);
 
-  var data = function(client){
+  var clients = [];
 
-    client.volatile.emit('data',
-        //JSON.stringify(
-        {
+  var dataOsEmitter = function (clientId) {
+
+    var data = {
           //tmpdir: os.tmpdir(),
           //endianness: os.endianness(),
           hostname: os.hostname(),
@@ -25,25 +25,98 @@ module.exports = function(appServer) {
           platform: os.platform(),
           arch: os.arch(),
           release: os.release(),
-          uptime: os.uptime(),
-          loadavg: os.loadavg(),
-          totalmem: os.totalmem(),
-          freemem: os.freemem(),
-          cpus: os.cpus(),
-          networkInterfaces: os.networkInterfaces(),
+          //uptime: os.uptime(),
+          //loadavg: os.loadavg(),
+          //totalmem: os.totalmem(),
+          //freemem: os.freemem(),
+          //cpus: os.cpus(),
+          //networkInterfaces: os.networkInterfaces(),
           //EOL: os.EOL,
-        }
-      //  , null, '  ')
-    );
+        };
+
+    /**
+      Emit only when there is a difference
+    */
+    if( JSON.stringify(data, null,'') != JSON.stringify(clients[clientId].data.os, null,'') ){
+      clients[clientId].data.os = data;
+      //client.volatile.emit('dataOs', data);
+      clients[clientId].socket.emit('dataOs', clients[clientId].data.os);
+    }
 
   };
 
+  var dataCpusEmitter = function (clientId) {
+
+    var data = {
+          cpus: os.cpus(),
+        };
+    
+    /**
+      Emit only when there is a difference with last data
+    */
+    if( JSON.stringify(data, null,'') != JSON.stringify(clients[clientId].data.cpus, null,'') ){
+      clients[clientId].data.cpus = data;
+      //client.volatile.emit('dataCpus', data);
+      clients[clientId].socket.emit('dataCpus', clients[clientId].data.cpus);
+    }
+
+  };
+
+  /**
+    Clear client interval dataEmitter
+  */
+  var clearDataEmitter = function (clientId, dataEmitter) {
+    clearInterval(clients[clientId].interval.dataEmitter[dataEmitter]);
+  };
+
+  /**
+    Client connection event
+  */
   io.on('connection', function (socket) {
 
-    var dataSocketInterval = setInterval(data, 1000, socket);
+    /**
+      Set the new client id
+    */
+    var clientId = new Date().getTime();
 
+    /**
+      Set the client data
+    */
+    clients[clientId] = {};
+
+    /**
+    Add necessary client data
+    */
+    clients[clientId].socket = socket; // socket
+    clients[clientId].interval = {}; // intervals
+    clients[clientId].interval.dataEmitter = {}; // dataEmitter
+    clients[clientId].data = {}; // data to hold last data value
+    clients[clientId].data.os = {};
+    clients[clientId].data.cpus = {};
+
+    /**
+      Set the client different dataEmitter interval
+    */
+    clients[clientId].interval.dataEmitter.os = setInterval(dataOsEmitter, 1000, clientId);
+    clients[clientId].interval.dataEmitter.cpus = setInterval(dataCpusEmitter, 1000, clientId);
+
+    /**
+      disconnect client event
+    */
     socket.on('disconnect', function () {
-      clearInterval(dataSocketInterval);
+      
+      /**
+        Clear all the client interval emitters
+      */
+      for(var dataEmitter in clients[clientId].interval.dataEmitter){
+        clearDataEmitter(clientId, dataEmitter);
+      }
+
+      /**
+        Delete the client data
+      */
+      delete clients[clientId];
+
     });
 
   });
