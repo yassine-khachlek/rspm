@@ -24,6 +24,11 @@ Or just do:
 
 `npm install && bower install`
 
+From version 0.0.3, postinstall script was added to run the bower install.
+Now you have just to do:
+
+`npm install`
+
 ## Run
 
 `node bin/www`
