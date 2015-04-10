@@ -6,5 +6,6 @@
     "search": [
       "https://bower.herokuapp.com"
     ]
-  }
+  },
+  "tmp": ".bower-tmp"
 }
