@@ -1,44 +1,55 @@
 extends layout
 
 block content
-  h2
-    span(class='glyphicon glyphicon-eye-open', aria-hidden='true')
-    = ' ' + title
+  
+  div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+    div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+      div(class='panel panel-default')
+        div(class='panel-heading' role='tab' id='headingOsOne')
+          h4(class='panel-title')
+            a(data-toggle='collapse' data-parent='#accordion' href='#collapseOsOne' aria-expanded='true' aria-controls='collapseOsOne')
+              b Connection
+        div(id='collapseOsOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+          div(class='panel-body')
+            div(id='connect-container')
 
-  div(class='row')
-    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
-      div(id='connect-container')
-
-  div(class='row')
-    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
-      div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
-        div(class='panel panel-default')
-          div(class='panel-heading' role='tab' id='headingOsOne')
-            h4(class='panel-title')
-              a(data-toggle='collapse' data-parent='#accordion' href='#collapseOsOne' aria-expanded='true' aria-controls='collapseOsOne')
-                b Os
-          div(id='collapseOsOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
-            div(class='panel-body')
-              div(id='data-os-container')
-
-  div(class='row')
-    div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
-      div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
-        div(class='panel panel-default')
-          div(class='panel-heading' role='tab' id='headingCpusOne')
-            h4(class='panel-title')
-              a(data-toggle='collapse' data-parent='#accordion' href='#collapseCpusOne' aria-expanded='true' aria-controls='collapseCpusOne')
-                b Cpus
-          div(id='collapseCpusOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
-            div(class='panel-body')
-              div(id='data-cpus-container')
+  div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+    div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+      div(class='panel panel-default')
+        div(class='panel-heading' role='tab' id='headingOsOne')
+          h4(class='panel-title')
+            a(data-toggle='collapse' data-parent='#accordion' href='#collapseOsOne' aria-expanded='true' aria-controls='collapseOsOne')
+              b Os
+        div(id='collapseOsOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+          div(class='panel-body')
+            div(id='data-os-container')
 
 
+  div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+    div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+      div(class='panel panel-default')
+        div(class='panel-heading' role='tab' id='headingCpusOne')
+          h4(class='panel-title')
+            a(data-toggle='collapse' data-parent='#accordion' href='#collapseCpusOne' aria-expanded='true' aria-controls='collapseCpusOne')
+              b Cpus
+        div(id='collapseCpusOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+          div(class='panel-body')
+            div(id='data-cpus-container')
+
+  div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+    div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+      div(class='panel panel-default')
+        div(class='panel-heading' role='tab' id='headingNetworkInterfacesOne')
+          h4(class='panel-title')
+            a(data-toggle='collapse' data-parent='#accordion' href='#collapseNetworkInterfacesOne' aria-expanded='true' aria-controls='collapseNetworkInterfacesOne')
+              b Network Interfaces
+        div(id='collapseNetworkInterfacesOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+          div(class='panel-body')
+            div(id='data-networkInterfaces-container')
 
 
   div(id='connect-template', class='hidden')
     h3
-      |Connection 
       span(class='label label-{{connectionStateColor}}', style='padding-top: 8px;')
         span(class='glyphicon glyphicon-link', aria-hidden='true')
 
@@ -103,6 +114,33 @@ block content
     samp
       |{{lastChanged}}
 
+
+  div(id='dataNetworkInterfacesTemplate', class='hidden')
+    {{#networkInterfaces}}
+
+    {{#interfaces}}
+    div(class='panel panel-default')
+      div(class='panel-heading') {{key}}
+      div(class='panel-body')  
+        {{#value}}
+        div(class='table-responsive')
+          table(class='table table-bordered table-hover table-condensed')
+            tbody
+              tr
+                th(style='width: 50%;') address
+                td {{address}}
+              tr
+                th family
+                td {{family}}
+              tr
+                th internal
+                td {{internal}}
+        {{/value}}
+    {{/interfaces}}
+
+    {{/networkInterfaces}}
+    samp
+      |{{lastChanged}}
 
   //  script(type='text/javascript').
     

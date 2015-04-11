@@ -71,6 +71,23 @@ module.exports = function(appServer) {
 
   };
 
+  var dataNetworkInterfacesEmitter = function (clientId) {
+
+    var data = {
+          networkInterfaces: os.networkInterfaces(),
+        };
+    
+    /**
+      Emit only when there is a difference with last data
+    */
+    if( JSON.stringify(data, null,'') != JSON.stringify(clients[clientId].data.networkInterfaces, null,'') ){
+      clients[clientId].data.networkInterfaces = data;
+      //client.volatile.emit('dataCpus', data);
+      clients[clientId].socket.emit('dataNetworkInterfaces', clients[clientId].data.networkInterfaces);
+    }
+
+  };
+
   /**
     Clear client interval dataEmitter
   */
@@ -102,12 +119,14 @@ module.exports = function(appServer) {
     clients[clientId].data = {}; // data to hold last data value
     clients[clientId].data.os = {};
     clients[clientId].data.cpus = {};
+    clients[clientId].data.networkInterfaces = {};
 
     /**
       Set the client different dataEmitter interval
     */
     clients[clientId].interval.dataEmitter.os = setInterval(dataOsEmitter, 1000, clientId);
     clients[clientId].interval.dataEmitter.cpus = setInterval(dataCpusEmitter, 1000, clientId);
+    clients[clientId].interval.dataEmitter.networkInterfaces = setInterval(dataNetworkInterfacesEmitter, 1000, clientId);
 
     /**
       disconnect client event

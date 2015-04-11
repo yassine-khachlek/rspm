@@ -1,7 +1,7 @@
 {
-  "name": "system-performance-monitoring",
-  "version": "0.0.3",
-  "homepage": "https://github.com/yassine-khachlek/system-performance-monitoring",
+  "name": "rspm",
+  "version": "0.0.4",
+  "homepage": "https://github.com/yassine-khachlek/rspm.git",
   "authors": [
     "Yassine Khachlek <yassine.khachlek@gmail.com>"
   ],
@@ -17,5 +17,11 @@
   "dependencies": {
     "bootstrap": "~3.3.4",
     "mustache": "~2.0.0"
-  }
+  },
+  "description": "Node.js application for remote system performance monitoring.",
+  "keywords": [
+    "remote",
+    "performance",
+    "monitoring"
+  ]
 }

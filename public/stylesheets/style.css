@@ -17,6 +17,10 @@ h1, h2 {
 	text-transform: uppercase;
 }
 
+h3 {
+	margin: 6px;
+}
+
 .table {
 	margin-bottom: 0px;
 }
@@ -27,6 +31,10 @@ h1, h2 {
 
 p {
 	padding: 10px;
+}
+
+.panel-body{
+	padding: 6px;
 }
 
 .footer {

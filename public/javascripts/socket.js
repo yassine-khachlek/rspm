@@ -122,3 +122,30 @@
       $('#data-cpus-container').html(rendered);
 
     });
+
+    /**
+      dataNetworkInterfaces event
+    */
+    socket.on('dataNetworkInterfaces', function (dataNetworkInterfaces) {
+
+      var tpl = $('#dataNetworkInterfacesTemplate').html();
+
+      var mustacheFormattedData = {
+          'networkInterfaces': [],
+          'interfaces': [],
+      };
+
+      for (var prop in dataNetworkInterfaces) {
+        mustacheFormattedData.networkInterfaces.push({key: prop, value: dataNetworkInterfaces[prop]});
+        for (var prop1 in dataNetworkInterfaces[prop]) {
+          mustacheFormattedData.interfaces.push(({key: prop1, value: dataNetworkInterfaces[prop][prop1]}));
+        }
+      }
+
+      mustacheFormattedData.lastChanged = new Date().toISOString().replace(/Z|T/gi, ' ').split('.')[0];
+
+      var rendered = Mustache.render(tpl, mustacheFormattedData);
+
+      $('#data-networkInterfaces-container').html(rendered);
+
+    });    
