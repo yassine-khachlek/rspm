@@ -1,27 +1,28 @@
 html {
-
+  position: relative;
+  min-height: 100%;
 }
 
 body {
   //padding: 50px;
   //font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  
+  margin-bottom: 60px;
 }
 
 a {
   //color: #00B7FF;
 }
 
-h1 {
+h1, h2 {
 	text-transform: uppercase;
 }
 
 .table {
-	margin-bottom: 4px;
+	margin-bottom: 0px;
 }
 
 .table th {
-	text-transform: uppercase;
+	text-transform: capitalize;
 }
 
 p {

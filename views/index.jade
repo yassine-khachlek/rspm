@@ -11,73 +11,98 @@ block content
 
   div(class='row')
     div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
-      div(id='data-os-container')
+      div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+        div(class='panel panel-default')
+          div(class='panel-heading' role='tab' id='headingOsOne')
+            h4(class='panel-title')
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseOsOne' aria-expanded='true' aria-controls='collapseOsOne')
+                b Os
+          div(id='collapseOsOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+            div(class='panel-body')
+              div(id='data-os-container')
 
   div(class='row')
     div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
-      div(id='data-cpus-container')
+      div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+        div(class='panel panel-default')
+          div(class='panel-heading' role='tab' id='headingCpusOne')
+            h4(class='panel-title')
+              a(data-toggle='collapse' data-parent='#accordion' href='#collapseCpusOne' aria-expanded='true' aria-controls='collapseCpusOne')
+                b Cpus
+          div(id='collapseCpusOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+            div(class='panel-body')
+              div(id='data-cpus-container')
+
+
+
 
   div(id='connect-template', class='hidden')
     h3
-      | Connection 
+      |Connection 
       span(class='label label-{{connectionStateColor}}', style='padding-top: 8px;')
         span(class='glyphicon glyphicon-link', aria-hidden='true')
 
   div(id='dataOsTemplate', class='hidden')
-        h3
-          |Os
+    div(class='table-responsive')
+      table(class='table table-bordered table-hover table-condensed')
+        thead
+        tbody
+          tr
+            th hostname
+            td {{hostname}}
+          tr
+            th type
+            td {{type}}
+          tr
+            th platform
+            td {{platform}}
+          tr
+            th arch.
+            td {{arch}}
+          tr
+            th release
+            td {{release}}
+    samp
+      |{{lastChanged}}
+  
+  div(id='dataCpusTemplate', class='hidden')
+    {{#cpus}}
+    div(class='panel panel-default')
+      div(class='panel-heading')
+        {{id}} - {{model}}
+      div(class='panel-body')
         div(class='table-responsive')
           table(class='table table-bordered table-hover table-condensed')
             thead
             tbody
               tr
-                th
-                  span(class='glyphicon glyphicon-home', aria-hidden='true')
-                  |hostname
-                td
-                  |{{hostname}}
+                th Speed
+                td {{speed}}
               tr
-                th
-                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
-                  |type
+                th Times
                 td
-                  |{{type}}
-              tr
-                th
-                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
-                  |platform
-                td
-                  |{{platform}}
-              tr
-                th
-                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
-                  |arch.
-                td
-                  |{{arch}}
-              tr
-                th
-                  span(class='glyphicon glyphicon-screenshot', aria-hidden='true')
-                  |release
-                td
-                  |{{release}}
-        samp
-          |{{lastChanged}}
-  
-  div(id='dataCpusTemplate', class='hidden')
-    h3
-      |Cpus
-    div(class='table-responsive')
-      {{#cpus}}
-      table(class='table table-bordered table-hover table-condensed')
-        tbody
-        tr
-          th
-            {{model}}
-          td
-            {{speed}}
-      {{/cpus}}
+                  div(class='table-responsive')
+                    table(class='table table-bordered table-hover table-condensed')
+                      tbody
+                        tr
+                          th user
+                          td {{times.user}}
+                        tr
+                          th nice
+                          td {{times.nice}}
+                        tr
+                          th sys
+                          td {{times.sys}}
+                        tr
+                          th idle
+                          td {{times.idle}}
+                        tr
+                          th irq
+                          td {{times.irq}}                         
+    {{/cpus}}      
     samp
       |{{lastChanged}}
+
 
   //  script(type='text/javascript').
     

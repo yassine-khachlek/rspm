@@ -111,10 +111,11 @@
       dataCpus event
     */
     socket.on('dataCpus', function (dataCpus) {
-    
+
       var tpl = $('#dataCpusTemplate').html();
 
       dataCpus.lastChanged = new Date().toISOString().replace(/Z|T/gi, ' ').split('.')[0];
+      dataCpus.count = function() { return this.cpus.length; }
 
       var rendered = Mustache.render(tpl, dataCpus);
 

@@ -50,6 +50,15 @@ module.exports = function(appServer) {
     var data = {
           cpus: os.cpus(),
         };
+
+    /**
+    Add cpus number
+    */
+    var id = 0;
+    for(var cpus in data.cpus){
+        data.cpus[cpus].id = id;
+        id++;
+    }
     
     /**
       Emit only when there is a difference with last data
