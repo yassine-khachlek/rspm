@@ -1,31 +1,14 @@
-## System Performance Monitoring
+## Remote System Performance Monitoring
+
+[![Build Status](https://travis-ci.org/yassine-khachlek/rspm.svg)](https://travis-ci.org/yassine-khachlek/rspm)
 
 Node.js application for system performance monitoring.
 
-## Prerequisites:
-
- * A Linux system
- * Node.js & npm <https://nodejs.org>
- * Bower <http://bower.io>
-
 ## Supported system
 
-  Actually, only Linux are targeted and specially server versions.
+  Actually, the software is made for Linux system monitoring using any other remote system via the web browser.
 
 ## Installation
-
-`npm install`
-
-Then:
-
-`bower install`
-
-Or just do:
-
-`npm install && bower install`
-
-From version 0.0.3, postinstall script was added to run the bower install.
-Now you have just to do:
 
 `npm install`
 

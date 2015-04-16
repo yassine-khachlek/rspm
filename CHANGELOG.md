@@ -1,3 +1,8 @@
+0.0.5 / 2015-04-16
+==================
+
+	* Added Travis CI configuration to show build state.
+
 0.0.3 / 2015-04-10
 ==================
 
