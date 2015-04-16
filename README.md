@@ -30,7 +30,7 @@ Remotely:
 
 ## Demo
 
-`http://system-performance-monitoring.herokuapp.com/`
+`http://rspm.herokuapp.com/`
 
 ## License
 
