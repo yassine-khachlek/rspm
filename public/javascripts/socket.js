@@ -149,3 +149,28 @@
       $('#data-networkInterfaces-container').html(rendered);
 
     });    
+
+    /**
+      dataNetworkInterfaces event
+    */
+    socket.on('dataRam', function (dataRam) {
+
+      var tpl = $('#dataRamTemplate').html();
+
+      var mustacheFormattedData = {
+          'ram': [
+            {
+              totalmem: dataRam.totalmem,
+              usedmem: dataRam.totalmem-dataRam.freemem,
+              freemem: dataRam.freemem,
+            }
+          ],
+      };
+
+      mustacheFormattedData.lastChanged = new Date().toISOString().replace(/Z|T/gi, ' ').split('.')[0];
+
+      var rendered = Mustache.render(tpl, mustacheFormattedData);
+
+      $('#data-ram-container').html(rendered);
+
+    });  

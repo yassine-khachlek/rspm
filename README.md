@@ -2,23 +2,31 @@
 
 [![Build Status](https://travis-ci.org/yassine-khachlek/rspm.svg)](https://travis-ci.org/yassine-khachlek/rspm)
 
-Node.js application for system performance monitoring.
+Node.js application for remote system performance monitoring.
 
 ## Supported system
 
-  Actually, the software is made for Linux system monitoring using any other remote system via the web browser.
+  Actually, the software is made for Linux monitoring using any remote system via the web browser.
 
 ## Installation
 
-`npm install`
+`$ cd /path/to/the/project`
+
+`$ npm install`
 
 ## Run
 
-`node bin/www`
+`$ node bin/www`
 
-## Open the link below in your browser:
+Once the server is started, use any browser to access the dashborad:
+
+For local test:
 
 `http://localhost:3000`
+
+Remotely:
+
+`http://server-address:3000`
 
 ## Demo
 

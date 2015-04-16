@@ -25,6 +25,7 @@ block content
             div(id='data-os-container')
 
 
+
   div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
     div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
       div(class='panel panel-default')
@@ -35,6 +36,17 @@ block content
         div(id='collapseCpusOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
           div(class='panel-body')
             div(id='data-cpus-container')
+
+  div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
+    div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
+      div(class='panel panel-default')
+        div(class='panel-heading' role='tab' id='headingRamOne')
+          h4(class='panel-title')
+            a(data-toggle='collapse' data-parent='#accordion' href='#collapseRamOne' aria-expanded='true' aria-controls='collapseRamOne')
+              b Memory (RAM)
+        div(id='collapseRamOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne')
+          div(class='panel-body')
+            div(id='data-ram-container')
 
   div(class='col-xs-6 col-sm-6 col-md-6 col-lg-6')
     div(class='panel-group' id='accordion' role='tablist' aria-multiselectable='true')
@@ -135,10 +147,33 @@ block content
               tr
                 th internal
                 td {{internal}}
+          div(style="height: 4px;")
         {{/value}}
     {{/interfaces}}
 
     {{/networkInterfaces}}
+    samp
+      |{{lastChanged}}
+
+  div(id='dataRamTemplate', class='hidden')
+    
+
+    {{#ram}}
+    div(class='table-responsive')
+      table(class='table table-bordered table-hover table-condensed')
+        tbody
+          tr
+            th total mem.
+            td {{totalmem}}
+          tr
+            th used mem.
+            td {{usedmem}}
+          tr
+            th free mem.
+            td {{freemem}}
+    {{/ram}}
+
+    
     samp
       |{{lastChanged}}
 
